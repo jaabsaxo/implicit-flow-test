@@ -33,7 +33,8 @@ function login() {
 }
 
 function CheckToken() {
-  const token = get_query_string_param("access_token")
+  const token = get_query_string_param("access_token");
+  console.log("Token: ", token);
   const TokenDict = {
     'method': 'GET',
     'headers': { 'Authorization': 'Bearer ' + token }
