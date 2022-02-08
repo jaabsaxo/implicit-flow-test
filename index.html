@@ -7,22 +7,12 @@
 
 <script type="text/javascript">
 
-
 function get_access_token() {
-
   const currenturl = window.location.href;
   arr = currenturl.split("=")
-  console.log("arr", arr);
-
   s2 = arr[1];
-  console.log("x2", s2);
-
   arr2 = s2.split("&");
-  console.log("arr2", arr2);
-
   token = arr2[0];
-  console.log("token x", token);
-
   return token;
 }
 
@@ -38,7 +28,7 @@ function login() {
     redirect: 'follow'
   };
   console.log("log in..");
-  window.open(url, '_blank');
+  window.open(url, '_self');
 }
 
 function CheckToken() {
@@ -57,14 +47,13 @@ function CheckToken() {
     }
   }).then(response => response.json()).then(data => {
     document.getElementById("TokenStatus").innerHTML = "Token Status: ACTIVE";
-    document.getElementById("TokenCheck").innerHTML = "Logged in as: " + data.ClientId;
+    document.getElementById("TokenCheck").innerHTML = "Logged in as Client: " + data.ClientId;
   })
 }   
 
-var refreshTimeSeconds = 10;
+var refreshTimeSeconds = 300;
 var secondsSinceLastRefresh = 0;
-
-var x = setInterval(function() {
+var Clock = setInterval(function() {
   var dt = refreshTimeSeconds - secondsSinceLastRefresh;
   document.getElementById("clock").innerHTML = "Next refresh in: " + dt + "s ";
   if (dt < 0) {
@@ -75,7 +64,7 @@ var x = setInterval(function() {
 }, 1000);
 
 </script>
-<h3>v0.0.8</h3>
+<h3>v0.0.9</h3>
 <p id="clock"></p>
 <button onclick="login()">Login</button>
 <button onclick="CheckToken()">Check Token</button>
