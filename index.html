@@ -6,23 +6,7 @@
 
 
 <script type="text/javascript">
-const client_id = "add82f2f69d340249024017f2194adac";
-const stateString = "State" + Math.random().toString();
-const redirectUrl = "https://jaabsaxo.github.io/implicit-flow-test/";
 
-const url = "https://sim.logonvalidation.net/authorize?response_type=token&client_id="+client_id+"&state="+stateString+"&redirect_uri="+redirectUrl;
-
-const options = {
-  method: 'GET',
-  mode: 'no-cors',
-  redirect: 'follow'
-};
-
-function login() {
-  console.log("log in..");
-  window.open(url, '_blank');
-
-}
 
 function get_query_string_param() {
   const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -32,10 +16,36 @@ function get_query_string_param() {
   let value = params.some_key; // "some_value"
   return value;
 }
-      
+
+function login() {
+  const client_id = "add82f2f69d340249024017f2194adac";
+  const stateString = "State" + Math.random().toString();
+  const redirectUrl = "https://jaabsaxo.github.io/implicit-flow-test/";
+  const url = "https://sim.logonvalidation.net/authorize?response_type=token&client_id="+client_id+"&state="+stateString+"&redirect_uri="+redirectUrl;
+
+  const options = {
+    method: 'GET',
+    mode: 'no-cors',
+    redirect: 'follow'
+  };
+  console.log("log in..");
+  window.open(url, '_blank');
+}
+
+function CheckToken() {
+  const token = get_query_string_param("access_token")
+  const TokenDict = {
+    'method': 'GET',
+    'headers': { 'Authorization': 'Bearer ' + token }
+  }
+  fetch("https://gateway.saxobank.com/sim/openapi/port/v1/clients/me", TokenDict).then(response => response.json()).then(data => {
+    console.log("Logged in as", data.ClientId)
+  })
+}   
 </script>
 
 <button onclick="login()">Login</button>
+<button onclick="CheckToken()">Check Token</button>
 
 </body>
 </html>
