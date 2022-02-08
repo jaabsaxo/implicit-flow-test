@@ -17,7 +17,9 @@ function getCharacterLength (str) {
 
 function checkIfLoggedIn() {
   const currenturl = window.location.href;
-  console.log("Length of url: ", getCharacterLength(currenturl));
+  if (getCharacterLength(currenturl)) {
+    isLoggedIn = True;
+  }
 }
 
 function get_expriry() {
@@ -71,24 +73,29 @@ function CheckToken() {
   }).then(response => response.json()).then(data => {
     document.getElementById("TokenStatus").innerHTML = "Token Status: ACTIVE";
     document.getElementById("TokenCheck").innerHTML = "Logged in as Client: " + data.ClientId;
+    isLoggedIn = False;
   })
 }   
 
 var refreshTimeSeconds = 300;
 var secondsSinceLastRefresh = 0;
 var Clock = setInterval(function() {
-  checkIfLoggedIn() 
-  var dt = refreshTimeSeconds - secondsSinceLastRefresh;
-  document.getElementById("clock").innerHTML = "Next refresh in: " + dt + "s ";
-  if (dt < 0) {
-    clearInterval(x);
-    login();
-  }
-  secondsSinceLastRefresh = secondsSinceLastRefresh + 1;
+  checkIfLoggedIn(); 
+    if (isLoggedIn = True) {
+    var dt = refreshTimeSeconds - secondsSinceLastRefresh;
+    document.getElementById("clock").innerHTML = "Next refresh in: " + dt + "s ";
+    if (dt < 0) {
+      clearInterval(x);
+      login();
+    }
+    secondsSinceLastRefresh = secondsSinceLastRefresh + 1;
+    } else {
+      document.getElementById("clock").innerHTML = "";
+    }
 }, 1000);
 
 </script>
-<h3>v0.0.10</h3>
+<h3>v0.0.11</h3>
 <p id="clock"></p>
 <button onclick="login()">Login</button>
 <button onclick="CheckToken()">Check Token</button>
