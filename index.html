@@ -7,6 +7,29 @@
 
 <script type="text/javascript">
 
+var isLoggedIn = false;
+
+function getCharacterLength (str) {
+  // The string iterator that is used here iterates over characters,
+  //  not mere code units
+  return [...str].length;
+}
+
+function checkIfLoggedIn() {
+  const currenturl = window.location.href;
+  console.log("Length of url: ", getCharacterLength(currenturl));
+}
+
+function get_expriry() {
+  const currenturl = window.location.href;
+  arr = currenturl.split("=")
+  s2 = arr[3];
+  arr2 = s2.split("&");
+  expiry = arr2[0];
+  console.log("expiry", expiry);
+  return expiry;
+}
+
 function get_access_token() {
   const currenturl = window.location.href;
   arr = currenturl.split("=")
@@ -54,6 +77,7 @@ function CheckToken() {
 var refreshTimeSeconds = 300;
 var secondsSinceLastRefresh = 0;
 var Clock = setInterval(function() {
+  checkIfLoggedIn() 
   var dt = refreshTimeSeconds - secondsSinceLastRefresh;
   document.getElementById("clock").innerHTML = "Next refresh in: " + dt + "s ";
   if (dt < 0) {
@@ -64,7 +88,7 @@ var Clock = setInterval(function() {
 }, 1000);
 
 </script>
-<h3>v0.0.9</h3>
+<h3>v0.0.10</h3>
 <p id="clock"></p>
 <button onclick="login()">Login</button>
 <button onclick="CheckToken()">Check Token</button>
