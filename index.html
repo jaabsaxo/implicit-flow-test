@@ -8,13 +8,12 @@
 <script type="text/javascript">
 
 
-function get_query_string_param() {
+function get_query_string_params() {
   const params = new Proxy(new URLSearchParams(window.location.search), {
   get: (searchParams, prop) => searchParams.get(prop),
   });
   // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
-  let value = params.some_key; // "some_value"
-  return value;
+  return params;
 }
 
 function login() {
@@ -33,7 +32,9 @@ function login() {
 }
 
 function CheckToken() {
-  const token = get_query_string_param("#access_token");
+  const params = get_query_string_params();
+  console.log("Params", params);
+  const token = params.access_token;
   console.log("Token: ", token);
   const TokenDict = {
     'method': 'GET',
