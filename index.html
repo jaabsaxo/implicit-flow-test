@@ -17,7 +17,7 @@ function getCharacterLength (str) {
 
 function checkIfLoggedIn() {
   const currenturl = window.location.href;
-  if (getCharacterLength(currenturl)) {
+  if (getCharacterLength(currenturl) > 50) {
     isLoggedIn = true;
   }
 }
@@ -95,7 +95,7 @@ var Clock = setInterval(function() {
 }, 1000);
 
 </script>
-<h3>v0.0.12</h3>
+<h3>v0.0.13</h3>
 <p id="clock"></p>
 <button onclick="login()">Login</button>
 <button onclick="CheckToken()">Check Token</button>
