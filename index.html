@@ -9,6 +9,10 @@
 
 
 function get_access_token() {
+
+  const debugurl = window.location.href;
+  console.log("debugurl", debugurl);
+
   const urlParams = new URLSearchParams(window.location.search);
   console.log("urlParams", urlParams);
   const myParam = urlParams.get('access_token');
@@ -45,7 +49,7 @@ function CheckToken() {
   })
 }   
 </script>
-<h3>v0.0.3</h3>
+<h3>v0.0.4</h3>
 <button onclick="login()">Login</button>
 <button onclick="CheckToken()">Check Token</button>
 
