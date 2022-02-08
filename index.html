@@ -53,38 +53,26 @@ function CheckToken() {
 }   
 
 
-var countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
+var refreshTimeSeconds = 60;
+var secondsSinceLastRefresh = 0;
 
 var x = setInterval(function() {
-
-// Get today's date and time
-var now = new Date().getTime();
-
-// Find the distance between now and the count down date
-var distance = countDownDate - now;
-
-// Time calculations for days, hours, minutes and seconds
-var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-// Display the result in the element with id="demo"
-document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-+ minutes + "m " + seconds + "s ";
-
-// If the count down is finished, write some text
-if (distance < 0) {
-  clearInterval(x);
-  document.getElementById("demo").innerHTML = "EXPIRED";
-}
+  var dt = refreshTimeSeconds - secondsSinceLastRefresh;
+  document.getElementById("demo").innerHTML = dt + "s ";
+  if (dt < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+  }
+  secondsSinceLastRefresh = secondsSinceLastRefresh + 1;
 }, 1000);
 
 </script>
-<h3>v0.0.5</h3>
+<h3>v0.0.6</h3>
+<p>Next refresh in:</p>
+<p id="demo"></p>
 <button onclick="login()">Login</button>
 <button onclick="CheckToken()">Check Token</button>
-<p id="demo"></p>
+
 
 </body>
 </html>
