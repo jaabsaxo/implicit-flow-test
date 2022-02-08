@@ -10,17 +10,20 @@
 
 function get_access_token() {
 
-  const debugurl = window.location.href;
-  console.log("debugurl", debugurl);
+  const currenturl = window.location.href;
+  arr = currenturl.split("=")
+  console.log("arr", arr);
 
-  const urlParams = new URLSearchParams(window.location.search);
-  console.log("urlParams", urlParams);
-  const myParam = urlParams.get('access_token');
-  console.log("myParam 1", myParam);
+  s2 = arr[1];
+  console.log("x2", s2);
 
-  const myParam2 = urlParams.get('#access_token');
-  console.log("myParam 2", myParam2);
-  return myParam;
+  arr2 = s2.split("&");
+  console.log("arr2", arr2);
+
+  token = arr2[0];
+  console.log("token x", token);
+
+  return token;
 }
 
 function login() {
@@ -49,7 +52,7 @@ function CheckToken() {
   })
 }   
 </script>
-<h3>v0.0.4</h3>
+<h3>v0.0.5</h3>
 <button onclick="login()">Login</button>
 <button onclick="CheckToken()">Check Token</button>
 
