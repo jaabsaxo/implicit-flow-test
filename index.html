@@ -18,7 +18,7 @@ function getCharacterLength (str) {
 function checkIfLoggedIn() {
   const currenturl = window.location.href;
   if (getCharacterLength(currenturl)) {
-    isLoggedIn = True;
+    isLoggedIn = true;
   }
 }
 
@@ -73,7 +73,7 @@ function CheckToken() {
   }).then(response => response.json()).then(data => {
     document.getElementById("TokenStatus").innerHTML = "Token Status: ACTIVE";
     document.getElementById("TokenCheck").innerHTML = "Logged in as Client: " + data.ClientId;
-    isLoggedIn = False;
+    isLoggedIn = false;
   })
 }   
 
@@ -81,7 +81,7 @@ var refreshTimeSeconds = 300;
 var secondsSinceLastRefresh = 0;
 var Clock = setInterval(function() {
   checkIfLoggedIn(); 
-    if (isLoggedIn = True) {
+    if (isLoggedIn == true) {
     var dt = refreshTimeSeconds - secondsSinceLastRefresh;
     document.getElementById("clock").innerHTML = "Next refresh in: " + dt + "s ";
     if (dt < 0) {
@@ -95,7 +95,7 @@ var Clock = setInterval(function() {
 }, 1000);
 
 </script>
-<h3>v0.0.11</h3>
+<h3>v0.0.12</h3>
 <p id="clock"></p>
 <button onclick="login()">Login</button>
 <button onclick="CheckToken()">Check Token</button>
