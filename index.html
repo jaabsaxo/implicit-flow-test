@@ -33,7 +33,7 @@ function login() {
 }
 
 function CheckToken() {
-  const token = get_query_string_param("access_token");
+  const token = get_query_string_param("#access_token");
   console.log("Token: ", token);
   const TokenDict = {
     'method': 'GET',
@@ -44,7 +44,7 @@ function CheckToken() {
   })
 }   
 </script>
-
+<h3>v0.0.1</h3>
 <button onclick="login()">Login</button>
 <button onclick="CheckToken()">Check Token</button>
 
