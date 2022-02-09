@@ -28,7 +28,6 @@ function get_expriry() {
   s2 = arr[3];
   arr2 = s2.split("&");
   expiry = arr2[0];
-  console.log("expiry", expiry);
   return parseInt(expiry);
 }
 
@@ -77,9 +76,10 @@ function CheckToken() {
   })
 }   
 
-var refreshTimeSeconds = 5;
+var refreshTimeSeconds = 10;
 var secondsSinceLastRefresh = 0;
 var TokenExpiresIn = get_expriry(); 
+var TotalTime = 0;
 var Clock = setInterval(function() {
     checkIfLoggedIn(); 
     if (isLoggedIn == true) {
@@ -92,19 +92,28 @@ var Clock = setInterval(function() {
       login();
     }
     secondsSinceLastRefresh = secondsSinceLastRefresh + 1;
+    TotalTime = TotalTime + 1;
+    document.getElementById("TotalTime").innerHTML = "Total Runtime: " + TotalTime;
     } else {
       document.getElementById("clock").innerHTML = "";
     }
 }, 1000);
 
+
+function Stop() {
+  isLoggedIn = false;
+}
+
 </script>
-<h3>v0.0.15</h3>
+<h3>v0.0.16</h3>
 <p id="clock"></p>
 <p id="TokenExpires"></p>
 <button onclick="login()">Login</button>
 <button onclick="CheckToken()">Check Token</button>
+<button onclick="Stop()">Stop</button>
 <p id="TokenStatus"></p>
 <p id="ClientCheck"></p>
+<p id="TotalTime"></p>
 
 </body>
 </html>
