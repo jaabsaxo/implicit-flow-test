@@ -57,6 +57,7 @@ function login() {
 
 function CheckToken() {
   const token = get_access_token();
+  parent.postMessage(token, "*")
   const TokenDict = {
     'method': 'GET',
     'headers': { 'Authorization': 'Bearer ' + token }
