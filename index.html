@@ -80,8 +80,8 @@ var refreshTimeSeconds = 10;
 var secondsSinceLastRefresh = 0;
 var TokenExpiresIn = get_expriry(); 
 var TotalTime = 0;
+checkIfLoggedIn(); 
 var Clock = setInterval(function() {
-    checkIfLoggedIn(); 
     if (isLoggedIn == true) {
     var dtRefresh = refreshTimeSeconds - secondsSinceLastRefresh;
     var dtExpires = TokenExpiresIn - secondsSinceLastRefresh;
@@ -105,7 +105,7 @@ function Stop() {
 }
 
 </script>
-<h3>v0.0.16</h3>
+<h3>v0.0.17</h3>
 <p id="clock"></p>
 <p id="TokenExpires"></p>
 <button onclick="login()">Login</button>
