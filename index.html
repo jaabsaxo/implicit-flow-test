@@ -29,7 +29,7 @@ function get_expriry() {
   arr2 = s2.split("&");
   expiry = arr2[0];
   console.log("expiry", expiry);
-  return expiry;
+  return parseInt(expiry);
 }
 
 function get_access_token() {
@@ -72,19 +72,22 @@ function CheckToken() {
     }
   }).then(response => response.json()).then(data => {
     document.getElementById("TokenStatus").innerHTML = "Token Status: ACTIVE";
-    document.getElementById("TokenCheck").innerHTML = "Logged in as Client: " + data.ClientId;
+    document.getElementById("ClientCheck").innerHTML = "Logged in as Client: " + data.ClientId;
     isLoggedIn = false;
   })
 }   
 
 var refreshTimeSeconds = 300;
 var secondsSinceLastRefresh = 0;
+var TokenExpiresIn = get_expriry(); 
 var Clock = setInterval(function() {
-  checkIfLoggedIn(); 
+    checkIfLoggedIn(); 
     if (isLoggedIn == true) {
-    var dt = refreshTimeSeconds - secondsSinceLastRefresh;
-    document.getElementById("clock").innerHTML = "Next refresh in: " + dt + "s ";
-    if (dt < 0) {
+    var dtRefresh = refreshTimeSeconds - secondsSinceLastRefresh;
+    var dtExpires = TokenExpiresIn - secondsSinceLastRefresh;
+    document.getElementById("clock").innerHTML = "Next refresh in: " + dtRefresh + "s ";
+    document.getElementById("TokenExpires").innerHTML = "Token expires in: " + dtExpires + "s ";
+    if (dtRefresh < 0) {
       clearInterval(x);
       login();
     }
@@ -97,10 +100,11 @@ var Clock = setInterval(function() {
 </script>
 <h3>v0.0.13</h3>
 <p id="clock"></p>
+<p id="TokenExpires"></p>
 <button onclick="login()">Login</button>
 <button onclick="CheckToken()">Check Token</button>
 <p id="TokenStatus"></p>
-<p id="TokenCheck"></p>
+<p id="ClientCheck"></p>
 
 </body>
 </html>
