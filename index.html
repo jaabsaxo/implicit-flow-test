@@ -45,6 +45,7 @@ function login() {
   const stateString = "State" + Math.random().toString();
   const redirectUrl = "https://jaabsaxo.github.io/implicit-flow-test/";
   const url = "https://sim.logonvalidation.net/authorize?response_type=token&client_id="+client_id+"&state="+stateString+"&redirect_uri="+redirectUrl;
+  console.log("url", url);
 
   const options = {
     method: 'GET',
