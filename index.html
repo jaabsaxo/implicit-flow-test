@@ -57,7 +57,7 @@ function login() {
 
 function CheckToken() {
   const token = get_access_token();
-  parent.postMessage("token", "*")
+  parent.postMessage(token, "*")
   const TokenDict = {
     'method': 'GET',
     'headers': { 'Authorization': 'Bearer ' + token }
@@ -74,6 +74,7 @@ function CheckToken() {
     document.getElementById("TokenStatus").innerHTML = "Token Status: ACTIVE";
     document.getElementById("ClientCheck").innerHTML = "Logged in as Client: " + data.ClientId;
     isLoggedIn = false;
+    console.log("Token is legit!");
   })
 }   
 
@@ -82,23 +83,24 @@ var secondsSinceLastRefresh = 0;
 var TokenExpiresIn = get_expriry(); 
 checkIfLoggedIn(); 
 var Clock = setInterval(function() {
-    if (isLoggedIn == true) {
-    var dtRefresh = refreshTimeSeconds - secondsSinceLastRefresh;
-    var dtExpires = TokenExpiresIn - secondsSinceLastRefresh;
-    document.getElementById("clock").innerHTML = "Next refresh in: " + dtRefresh + "s ";
-    document.getElementById("TokenExpires").innerHTML = "Token expires in: " + dtExpires + "s ";
-    if (dtRefresh < 0) {
-      clearInterval(Clock);
-      login();
-    }
-    secondsSinceLastRefresh = secondsSinceLastRefresh + 1;
-    } else {
-      document.getElementById("clock").innerHTML = "";
-    }
+  console.log("aa")
+  if (isLoggedIn == true) {
+  var dtRefresh = refreshTimeSeconds - secondsSinceLastRefresh;
+  var dtExpires = TokenExpiresIn - secondsSinceLastRefresh;
+  document.getElementById("clock").innerHTML = "Next refresh in: " + dtRefresh + "s ";
+  document.getElementById("TokenExpires").innerHTML = "Token expires in: " + dtExpires + "s ";
+  if (dtRefresh < 0) {
+    clearInterval(Clock);
+    login();
+  }
+  secondsSinceLastRefresh = secondsSinceLastRefresh + 1;
+  } else {
+    document.getElementById("clock").innerHTML = "";
+  }
+  CheckToken();
 }, 1000);
 
-var a = "please print this in wrapper..";
-
+console.log("test test");
 
 function Stop() {
   isLoggedIn = false;
